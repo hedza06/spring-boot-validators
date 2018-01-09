@@ -40,6 +40,7 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("username",
                     "username.required",
                     "Field `username` is required.");
+            return;
         }
 
         if (!(exampleDTO.getUsername() instanceof String))
@@ -62,6 +63,7 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("employed",
                     "employed.required",
                     "Field `employed` is required");
+            return;
         }
 
         // validate profession property

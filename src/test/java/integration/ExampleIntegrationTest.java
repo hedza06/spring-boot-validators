@@ -78,6 +78,79 @@ public class ExampleIntegrationTest {
         assertThat(responseBody.get("statusCode")).isEqualTo(400);
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testWithInvalidUsername() throws Exception
+    {
+        ExampleDTO exampleDTO = prepareInvalidRequestUsername();
+        ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
+                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                exampleDTO,
+                Object.class
+        );
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
+        assertThat(responseBody.get("statusCode")).isEqualTo(400);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testWithInvalidEmployed() throws Exception
+    {
+        ExampleDTO exampleDTO = prepareInvalidRequestEmployed();
+        ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
+                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                exampleDTO,
+                Object.class
+        );
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
+        assertThat(responseBody.get("statusCode")).isEqualTo(400);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testWithInvalidEmployedAndProfession() throws Exception
+    {
+        ExampleDTO exampleDTO = prepareInvalidRequestEmployedWithoutProfession();
+        ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
+                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                exampleDTO,
+                Object.class
+        );
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
+        assertThat(responseBody.get("statusCode")).isEqualTo(400);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testWithInvalidProfessionProvided() throws Exception
+    {
+        ExampleDTO exampleDTO = prepareInvalidRequestEmployedWithProfession();
+        ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
+                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                exampleDTO,
+                Object.class
+        );
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
+        assertThat(responseBody.get("statusCode")).isEqualTo(400);
+    }
+
+    /**
+     * Method for preparing request with regular parameters.
+     *
+     * @return ExampleDTO object.
+     */
     private ExampleDTO prepareRegularRequest()
     {
         ExampleDTO exampleDTO = new ExampleDTO();
@@ -89,6 +162,11 @@ public class ExampleIntegrationTest {
         return exampleDTO;
     }
 
+    /**
+     * Method for preparing request with invalid age parameter.
+     *
+     * @return ExampleDTO without age parameter.
+     */
     private ExampleDTO prepareInvalidRequestWithoutAge()
     {
         ExampleDTO exampleDTO = new ExampleDTO();
@@ -99,6 +177,11 @@ public class ExampleIntegrationTest {
         return exampleDTO;
     }
 
+    /**
+     * Method for preparing request with invalid profession parameter.
+     *
+     * @return ExampleDTO with invalid profession parameter.
+     */
     private ExampleDTO prepareInvalidRequestProfession()
     {
         ExampleDTO exampleDTO = new ExampleDTO();
@@ -106,6 +189,69 @@ public class ExampleIntegrationTest {
         exampleDTO.setEmployed(true);
         exampleDTO.setUsername("hedza06");
         exampleDTO.setProfession("DUMMY_PROFESSION");
+
+        return exampleDTO;
+    }
+
+    /**
+     * Method for preparing request with invalid username parameter.
+     *
+     * @return ExampleDTO with invalid username parameter.
+     */
+    private ExampleDTO prepareInvalidRequestUsername()
+    {
+        ExampleDTO exampleDTO = new ExampleDTO();
+        exampleDTO.setAge(25);
+        exampleDTO.setEmployed(true);
+        exampleDTO.setUsername("    ");
+        exampleDTO.setProfession("DUMMY_PROFESSION");
+
+        return exampleDTO;
+    }
+
+    /**
+     * Method for preparing request with invalid employed parameter.
+     *
+     * @return ExampleDTO with invalid employed parameter.
+     */
+    private ExampleDTO prepareInvalidRequestEmployed()
+    {
+        ExampleDTO exampleDTO = new ExampleDTO();
+        exampleDTO.setAge(25);
+        exampleDTO.setUsername("hedza06");
+        exampleDTO.setProfession("OTHER");
+
+        return exampleDTO;
+    }
+
+    /**
+     * Method for preparing request with invalid profession when employed field is set to true.
+     *
+     * @return ExampleDTO with invalid employed and profession.
+     */
+    private ExampleDTO prepareInvalidRequestEmployedWithoutProfession()
+    {
+        ExampleDTO exampleDTO = new ExampleDTO();
+        exampleDTO.setAge(25);
+        exampleDTO.setEmployed(true);
+        exampleDTO.setUsername("hedza06");
+
+        return exampleDTO;
+    }
+
+    /**
+     * Method for preparing request with invalid employed and profession. When employed is set to false, but
+     * profession is provided.
+     *
+     * @return ExampleDTO with invalid employed and profession.
+     */
+    private ExampleDTO prepareInvalidRequestEmployedWithProfession()
+    {
+        ExampleDTO exampleDTO = new ExampleDTO();
+        exampleDTO.setAge(25);
+        exampleDTO.setEmployed(false);
+        exampleDTO.setUsername("hedza06");
+        exampleDTO.setProfession("OTHER");
 
         return exampleDTO;
     }
