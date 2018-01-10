@@ -48,6 +48,8 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("username",
                     "username.invalid",
                     "Invalid type of `username` parameter");
+
+            return;
         }
 
         if (isUsernameInUse(exampleDTO.getUsername()))
@@ -55,6 +57,8 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("username",
                     "username.already_taken",
                     "Field `username` is already taken.");
+
+            return;
         }
 
         // validate employed
@@ -72,6 +76,7 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("profession",
                     "profession.required",
                     "Field `profession` is required");
+            return;
         }
 
         if (exampleDTO.getEmployed()
@@ -80,21 +85,29 @@ public class ExampleValidator implements Validator {
             errors.rejectValue("profession",
                     "profession.invalid",
                     "Invalid type of `profession` parameter.");
+            return;
         }
 
-        if (!exampleDTO.getEmployed() && exampleDTO.getProfession() != null) {
+        if (!exampleDTO.getEmployed() && exampleDTO.getProfession() != null)
+        {
             errors.rejectValue("profession",
                     "profession.provided",
                     "Do not specify profession if `employed` field is false or 0.");
+
+            return;
         }
 
         // validate age property
-        if (exampleDTO.getAge() == null) {
+        if (exampleDTO.getAge() == null)
+        {
             errors.rejectValue("age", "age.required", "Field `age` is required.");
+            return;
         }
 
-        if (exampleDTO.getAge() != null && exampleDTO.getAge() == 0) {
+        if (exampleDTO.getAge() != null && exampleDTO.getAge() == 0)
+        {
             errors.rejectValue("age", "age.invalid", "Field `age` is invalid.");
+            return;
         }
 
         if (exampleDTO.getAge() != null && exampleDTO.getAge() < 18)
@@ -106,6 +119,7 @@ public class ExampleValidator implements Validator {
     }
 
     private Boolean isUsernameInUse(String username) {
-        return this.exampleService.isUsernameInUse(username);
+        Boolean result = this.exampleService.isUsernameInUse(username);
+        return result;
     }
 }

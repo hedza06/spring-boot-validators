@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class ExampleService {
 
     public Boolean isUsernameInUse(String username) {
-        return false;
+        return username.contentEquals("already_in_use");
     }
 
 }

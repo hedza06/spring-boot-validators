@@ -59,6 +59,7 @@ public class ExampleIntegrationTest {
 
         Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
         assertThat(responseBody.get("statusCode")).isEqualTo(400);
+        assertThat(responseBody.get("status")).isEqualTo("BAD_REQUEST");
     }
 
     @Test
@@ -134,6 +135,23 @@ public class ExampleIntegrationTest {
     public void testWithInvalidProfessionProvided() throws Exception
     {
         ExampleDTO exampleDTO = prepareInvalidRequestEmployedWithProfession();
+        ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
+                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                exampleDTO,
+                Object.class
+        );
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> responseBody = (Map<String, Object>) responseEntity.getBody();
+        assertThat(responseBody.get("statusCode")).isEqualTo(400);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testWithAlreadyPickedUsername() throws Exception
+    {
+        ExampleDTO exampleDTO = prepareInvalidRequestWithExistingUsername();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
                 "http://localhost:8080/api/" + TestConfig.API_STORE,
                 exampleDTO,
@@ -251,6 +269,22 @@ public class ExampleIntegrationTest {
         exampleDTO.setAge(25);
         exampleDTO.setEmployed(false);
         exampleDTO.setUsername("hedza06");
+        exampleDTO.setProfession("OTHER");
+
+        return exampleDTO;
+    }
+
+    /**
+     * Method for preparing request with invalid username (already in use).
+     *
+     * @return ExampleDTO with picked username.
+     */
+    private ExampleDTO prepareInvalidRequestWithExistingUsername()
+    {
+        ExampleDTO exampleDTO = new ExampleDTO();
+        exampleDTO.setAge(25);
+        exampleDTO.setEmployed(true);
+        exampleDTO.setUsername("already_in_use");
         exampleDTO.setProfession("OTHER");
 
         return exampleDTO;
