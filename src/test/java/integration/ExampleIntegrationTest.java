@@ -34,7 +34,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareRegularRequest();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -52,7 +52,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestWithoutAge();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -68,7 +68,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestProfession();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -85,7 +85,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestUsername();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -102,7 +102,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestEmployed();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -119,7 +119,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestEmployedWithoutProfession();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -136,7 +136,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestEmployedWithProfession();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );
@@ -153,7 +153,7 @@ public class ExampleIntegrationTest {
     {
         ExampleDTO exampleDTO = prepareInvalidRequestWithExistingUsername();
         ResponseEntity<Object> responseEntity = testRestTemplate.postForEntity(
-                "http://localhost:8080/api/" + TestConfig.API_STORE,
+                TestConfig.API_STORE,
                 exampleDTO,
                 Object.class
         );

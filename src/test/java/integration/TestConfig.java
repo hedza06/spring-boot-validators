@@ -7,5 +7,5 @@ final class TestConfig {
 
     private TestConfig() { }
 
-    static final String API_STORE = "store";
+    static final String API_STORE = "http://localhost:8080/api/store";
 }
