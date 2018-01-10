@@ -119,7 +119,6 @@ public class ExampleValidator implements Validator {
     }
 
     private Boolean isUsernameInUse(String username) {
-        Boolean result = this.exampleService.isUsernameInUse(username);
-        return result;
+        return this.exampleService.isUsernameInUse(username);
     }
 }
